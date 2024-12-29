@@ -62,7 +62,7 @@ project-root/
 
 Start the application:
 ```bash
-go run main.go
+go run cmd/parser/main.go
 ```
 
 ## HTTP Endpoints

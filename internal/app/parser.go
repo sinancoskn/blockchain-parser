@@ -2,9 +2,9 @@ package app
 
 import (
 	"blockchain-parser/config"
+	"blockchain-parser/internal/logger"
 	"blockchain-parser/internal/parser"
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/go-chi/chi/middleware"
@@ -43,6 +43,6 @@ func ProvideHTTPRouter(
 
 func startServer(router *chi.Mux) error {
 	port := fmt.Sprintf(":%s", config.GlobalConfig.Port)
-	log.Printf("Starting server on %s", port)
+	logger.Log.Info("Starting server on " + port)
 	return http.ListenAndServe(port, router)
 }

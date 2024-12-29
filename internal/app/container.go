@@ -3,6 +3,7 @@ package app
 import (
 	"blockchain-parser/config"
 	"blockchain-parser/internal/ethereum"
+	"blockchain-parser/internal/logger"
 	"blockchain-parser/internal/parser"
 	"blockchain-parser/internal/storage"
 	"context"
@@ -13,6 +14,8 @@ import (
 
 func InitializeContainer() *dig.Container {
 	config.LoadConfig()
+
+	logger.InitLogger()
 
 	c := dig.New()
 
@@ -36,6 +39,8 @@ func InitializeContainer() *dig.Container {
 	if err != nil {
 		log.Fatalf("failed to start monitoring: %w", err)
 	}
+
+	logger.Log.Info("Container initialized")
 
 	return c
 }
