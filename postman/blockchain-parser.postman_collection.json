@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "02aca5ed-3414-40e0-8d66-39980d6b6466",
+		"name": "blockchain-parser",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7911751",
+		"_collection_link": "https://lunar-desert-644813.postman.co/workspace/blockchain-parser~26115d38-f940-4916-806f-e4ea883a5d6f/collection/7911751-02aca5ed-3414-40e0-8d66-39980d6b6466?action=share&source=collection_link&creator=7911751"
+	},
+	"item": [
+		{
+			"name": "GetCurrentBlock",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/block/current",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"block",
+						"current"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transactions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/transactions?address={{TEST_ADDRESS}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"transactions"
+					],
+					"query": [
+						{
+							"key": "address",
+							"value": "{{TEST_ADDRESS}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subscribe",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"address\": \"{{TEST_ADDRESS}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/subscribe",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"subscribe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unsubscribe",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/unsubscribe?address={{TEST_ADDRESS}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"unsubscribe"
+					],
+					"query": [
+						{
+							"key": "address",
+							"value": "{{TEST_ADDRESS}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "TEST_ADDRESS",
+			"value": "0x411ee650A394b22a1D684834f2728b6b71E0fE50",
+			"type": "string"
+		}
+	]
+}
