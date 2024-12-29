@@ -1,32 +1,100 @@
-geth --dev --http --http.api personal,eth,net,web3,web3 --rpc.enabledeprecatedpersonal --http.corsdomain "https://remix.ethereum.org" --datadir "/Users/sinancskn/Desktop/eth_notify"
+# Project: Ethereum Transaction Notifier
 
-geth --datadir "/Users/sinancskn/Desktop/eth_notify" account new
+This project is an Ethereum transaction notification system that monitors blockchain transactions for subscribed addresses and provides a notification mechanism. It includes a parser, storage, and configuration management.
 
-geth attach http://127.0.0.1:8545
+## Features
 
-eth.accounts
+- Monitors the Ethereum blockchain for transactions.
+- Allows subscribing and unsubscribing to specific Ethereum addresses.
+- Stores transaction data in an in-memory storage system.
+- Exposes HTTP endpoints for interaction.
+- Configurable via `.env` file.
 
-personal.newAccount("password")
+## Project Structure
 
-eth.getBalance(eth.accounts[0])
-eth.getBalance("0x411ee650A394b22a1D684834f2728b6b71E0fE50")
+```
+project-root/
+├── config/                # Configuration management
+│   └── config.go
+├── internal/              # Core application logic
+│   ├── app/               # Application initialization
+│   ├── ethereum/          # Ethereum JSON-RPC client
+│   ├── parser/            # Blockchain parser implementation
+│   └── storage/           # In-memory storage system
+├── test/                  # Test files
+│   ├── integration/       # Integration tests
+│   └── unit/              # Unit tests
+├── .env                   # Environment variables
+├── go.mod                 # Go module file
+├── main.go                # Application entry point
+└── README.md              # Project documentation
+```
 
-eth.sendTransaction({
-    from: eth.accounts[0],
-    to: "0x411ee650A394b22a1D684834f2728b6b71E0fE50",
-    value: web3.toWei(1, "ether")
-})
+## Prerequisites
 
-eth.sendTransaction({
-    from: "0xbe327837c0DE653BDCcabFbF588c4e0f01e04097",
-    to: "0x411ee650A394b22a1D684834f2728b6b71E0fE50",
-    value: web3.toWei(5, "ether")
-})
+- [Go](https://golang.org/dl/) 1.18+
+- Geth (Go Ethereum) or another Ethereum node for testing
 
-web3.personal.unlockAccount("0xbe327837c0DE653BDCcabFbF588c4e0f01e04097", "password", 600)
+## Setup
 
-geth --datadir "/Users/sinancskn/Desktop/eth_notify" --unlock "0xbe327837c0DE653BDCcabFbF588c4e0f01e04097" --password "password"
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/yourproject.git
+   cd yourproject
+   ```
 
-# delete all accounts
-cd /Users/sinancskn/Desktop/eth_notify
-rm UTC--*
+2. Create a `.env` file in the project root:
+   ```env
+   ETHEREUM_RPC_URL=http://127.0.0.1:8545
+   ```
+
+3. Install dependencies:
+   ```bash
+   go mod tidy
+   ```
+
+4. Run the Ethereum node locally (example with Geth):
+   ```bash
+   geth --dev --http --http.api personal,eth,net,web3 --http.addr 127.0.0.1 --datadir ./eth_data
+   ```
+
+## Running the Application
+
+Start the application:
+```bash
+go run main.go
+```
+
+## HTTP Endpoints
+
+- **Get Current Block**
+  - **GET** `/block/current`
+  - Returns the current block being monitored.
+
+- **Subscribe to an Address**
+  - **POST** `/subscribe`
+  - Body: `{ "address": "<ethereum_address>" }`
+
+- **Unsubscribe from an Address**
+    - **POST** `/unsubscribe`
+    - Body: `{ "address": "<ethereum_address>" }`
+
+- **Get Transactions for an Address**
+  - **GET** `/transactions?address=<ethereum_address>`
+
+## Tests
+
+### Run All Tests
+```bash
+go test ./...
+```
+
+### Run Unit Tests Only
+```bash
+go test ./test/unit/...
+```
+
+### Run Integration Tests Only
+```bash
+go test ./test/integration/...
+```
