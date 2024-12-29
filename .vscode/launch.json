@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch ETH_NOTIFY",
+            "type": "go",
+            "request": "launch",
+            "program": "${workspaceFolder}/cmd/parser",
+            "args": [],
+            "env": {}, // Add necessary environment variables here
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "", // If you have any pre-launch tasks, define them in tasks.json and reference here
+            "showLog": true
+        },
+        {
+            "name": "Debug Unit Test",
+            "type": "go",
+            "request": "launch",
+            "mode": "test",
+            "program": "${workspaceFolder}/test/integration",
+            "args": ["-test.v"],
+            "env": {
+                "GO111MODULE": "on"
+            }
+        }
+    ]
+}
